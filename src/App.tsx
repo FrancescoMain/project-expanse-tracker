@@ -1,6 +1,9 @@
 import ExpanseList from "./expanse-tracker/components/ExpanseList";
 import { useState } from "react";
 import ExpenseFilter from "./expanse-tracker/components/ExpenseFilter";
+import ExpenseForm from "./expanse-tracker/components/ExpenseForm";
+
+export const categories = ["Groceries", "Utilities", "Entertainment"];
 
 function App() {
   const [selectedCategory, seSelectedCategory] = useState("");
@@ -17,6 +20,9 @@ function App() {
 
   return (
     <>
+      <div className="mb-5">
+        <ExpenseForm></ExpenseForm>
+      </div>
       <div className="mb-3">
         <ExpenseFilter
           onSelectCategory={(category) => seSelectedCategory(category)}
