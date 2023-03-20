@@ -12,21 +12,23 @@ const schema = z.object({
     .number({ invalid_type_error: "Campo richiesto" })
     .min(0.01)
     .max(100_000),
-  category: z.enum(categories, {
-    errorMap: () => ({ message: "La categorià è richiesta" }),
-  }),
+  category: z.enum(categories),
 });
+
+interface Props {
+  onSubmit: (data: ExpenseFormData) => void;
+}
 
 type ExpenseFormData = z.infer<typeof schema>;
 
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSubmit }: Props) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit(() => console.log(register))}>
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
           Descrription
@@ -65,7 +67,7 @@ const ExpenseForm = () => {
           id="category"
           className="form-select"
         >
-          <option value=""></option>
+          <option value="">All Categories</option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -76,7 +78,9 @@ const ExpenseForm = () => {
           <p className="text-danger">{errors.category.message}</p>
         )}
       </div>
-      <button className="btn btn-primary">Submit </button>
+      <button onClick={() => console.log(register)} className="btn btn-primary">
+        Submit{" "}
+      </button>
     </form>
   );
 };

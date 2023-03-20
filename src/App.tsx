@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <div className="mb-5">
-        <ExpenseForm></ExpenseForm>
+        <ExpenseForm onSubmit={(data) => console.log(data)}></ExpenseForm>
       </div>
       <div className="mb-3">
         <ExpenseFilter
